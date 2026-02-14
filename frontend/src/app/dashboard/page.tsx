@@ -29,7 +29,28 @@ export default function Dashboard() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedUids, setSelectedUids] = useState<number[]>([]);
 
-    // ... (rest of useEffects)
+    // Mobile Support States
+    const [isMobile, setIsMobile] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 1024;
+            setIsMobile(mobile);
+            if (!mobile) setIsSidebarOpen(false);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Close sidebar when folder changed on mobile
+    useEffect(() => {
+        if (isMobile) {
+            setIsSidebarOpen(false);
+            fetchMails(selectedFolder);
+        }
+    }, [selectedFolder]);
 
     // Filter mails based on search term
     const filteredMails = mails.filter(mail => {
@@ -515,13 +536,19 @@ export default function Dashboard() {
         }}>
             {/* SIDEBAR */}
             <div style={{
+                position: isMobile ? 'fixed' : 'relative',
+                left: isMobile ? (isSidebarOpen ? '0' : '-280px') : '0',
+                top: 0,
+                bottom: 0,
+                zIndex: 100,
                 width: '280px',
                 backgroundColor: colors.sidebarBg,
                 borderRight: `1px solid ${colors.sidebarBorder}`,
                 display: 'flex',
                 flexDirection: 'column',
                 flexShrink: 0,
-                transition: 'background-color 0.3s ease, border-color 0.3s ease'
+                transition: 'all 0.3s ease',
+                boxShadow: isMobile && isSidebarOpen ? '20px 0 50px rgba(0,0,0,0.5)' : 'none'
             }}>
                 {/* Logo */}
                 <div style={{
@@ -543,6 +570,14 @@ export default function Dashboard() {
                                 : 'drop-shadow(0 1px 4px rgba(0,0,0,0.2))'
                         }}
                     />
+                    {isMobile && (
+                        <button
+                            onClick={() => setIsSidebarOpen(false)}
+                            style={{ position: 'absolute', right: '16px', color: colors.subtext }}
+                        >
+                            <X size={20} />
+                        </button>
+                    )}
                 </div>
 
                 {/* Compose Button */}
@@ -658,6 +693,23 @@ export default function Dashboard() {
                 </div>
             </div>
 
+            {/* Mobile Sidebar Overlay */}
+            {isMobile && isSidebarOpen && (
+                <div
+                    onClick={() => setIsSidebarOpen(false)}
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        zIndex: 90,
+                        backdropFilter: 'blur(2px)'
+                    }}
+                />
+            )}
+
             {/* MAIN CONTENT */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                 {/* Top Bar */}
@@ -668,15 +720,23 @@ export default function Dashboard() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0 24px',
+                    padding: isMobile ? '0 12px' : '0 24px',
                     flexShrink: 0,
                     transition: 'background-color 0.3s ease, border-color 0.3s ease'
                 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, maxWidth: '400px' }}>
-                        <Search size={16} style={{ color: colors.iconColor }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '12px', flex: 1, maxWidth: isMobile ? '70%' : '400px' }}>
+                        {isMobile && (
+                            <button
+                                onClick={() => selectedMail ? setSelectedMail(null) : setIsSidebarOpen(true)}
+                                style={{ padding: '8px', color: colors.iconColor }}
+                            >
+                                {selectedMail ? <ArrowRight style={{ transform: 'rotate(180deg)' }} size={20} /> : <Inbox size={20} />}
+                            </button>
+                        )}
+                        <Search size={16} style={{ color: colors.iconColor, flexShrink: 0 }} />
                         <input
                             type="text"
-                            placeholder="E-postaları ara..."
+                            placeholder={isMobile ? "Ara..." : "E-postaları ara..."}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{
@@ -684,7 +744,8 @@ export default function Dashboard() {
                                 backgroundColor: 'transparent',
                                 border: 'none',
                                 color: colors.text,
-                                fontSize: '14px'
+                                fontSize: '14px',
+                                minWidth: 0
                             }}
                         />
                     </div>
@@ -753,13 +814,13 @@ export default function Dashboard() {
                 <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>
                     {/* Mail List */}
                     <div style={{
-                        width: '380px',
-                        borderRight: `1px solid ${colors.mailListBorder}`,
+                        width: isMobile ? '100%' : '380px',
+                        display: isMobile ? (selectedMail ? 'none' : 'flex') : 'flex',
+                        borderRight: isMobile ? 'none' : `1px solid ${colors.mailListBorder}`,
                         overflowY: 'auto',
                         flexShrink: 0,
                         backgroundColor: colors.mailListBg,
                         transition: 'background-color 0.3s ease, border-color 0.3s ease',
-                        display: 'flex',
                         flexDirection: 'column'
                     }}>
                         {/* Select All Header */}
@@ -822,7 +883,13 @@ export default function Dashboard() {
                     </div>
 
                     {/* Mail Detail or Bulk Actions */}
-                    <div style={{ flex: 1, overflowY: 'auto', backgroundColor: colors.mailDetailBg, transition: 'background-color 0.3s ease' }}>
+                    <div style={{
+                        flex: 1,
+                        overflowY: 'auto',
+                        backgroundColor: colors.mailDetailBg,
+                        transition: 'background-color 0.3s ease',
+                        display: isMobile ? (selectedMail || selectedUids.length > 0 ? 'block' : 'none') : 'block'
+                    }}>
                         {selectedUids.length > 0 ? (
                             <div style={{ padding: '32px', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                                 <div style={{ marginBottom: '24px', textAlign: 'center' }}>
@@ -1391,10 +1458,15 @@ export default function Dashboard() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 flex: 1,
-                                padding: '24px',
+                                padding: isMobile ? '16px' : '24px',
                                 overflowY: 'auto'
                             }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '20px' }}>
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                                    gap: isMobile ? '12px' : '24px',
+                                    marginBottom: '20px'
+                                }}>
                                     <div>
                                         <label style={{ display: 'block', fontSize: '11px', color: colors.subtext, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', fontWeight: 600 }}>
                                             Alıcı
@@ -1536,8 +1608,9 @@ export default function Dashboard() {
                                     paddingTop: '20px',
                                     borderTop: `1px solid ${colors.sidebarBorder}`,
                                     display: 'flex',
+                                    flexDirection: isMobile ? 'column-reverse' : 'row',
                                     justifyContent: 'flex-end',
-                                    gap: '16px'
+                                    gap: isMobile ? '10px' : '16px'
                                 }}>
                                     <button
                                         type="button"
@@ -1581,7 +1654,8 @@ export default function Dashboard() {
                                         disabled={sending}
                                         style={{
                                             backgroundColor: colors.accent,
-                                            padding: '12px 40px',
+                                            padding: isMobile ? '14px 40px' : '12px 40px',
+                                            width: isMobile ? '100%' : 'auto',
                                             fontSize: '13px',
                                             fontWeight: 700,
                                             textTransform: 'uppercase',
@@ -1590,6 +1664,7 @@ export default function Dashboard() {
                                             borderRadius: '8px',
                                             display: 'flex',
                                             alignItems: 'center',
+                                            justifyContent: 'center',
                                             gap: '10px',
                                             transition: 'all 0.2s',
                                             opacity: sending ? 0.7 : 1,

@@ -15,6 +15,15 @@ export default function LoginPage() {
         password: ""
     });
 
+    // Mobile Support
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 640);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
     // Advanced Settings State
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [serverConfig, setServerConfig] = useState({
@@ -155,7 +164,7 @@ export default function LoginPage() {
                             src="/logo.png"
                             alt="Nerzen Logo"
                             style={{
-                                height: '100px',
+                                height: isMobile ? '70px' : '100px',
                                 width: 'auto',
                                 filter: theme === 'dark'
                                     ? 'drop-shadow(0 0 15px rgba(59,130,246,0.4))'
@@ -211,7 +220,7 @@ export default function LoginPage() {
                         background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.5), transparent)'
                     }} />
 
-                    <form onSubmit={handleSubmit} style={{ padding: '40px' }}>
+                    <form onSubmit={handleSubmit} style={{ padding: isMobile ? '24px' : '40px' }}>
                         {/* Error Message */}
                         {error && (
                             <div style={{

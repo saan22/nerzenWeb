@@ -60,6 +60,7 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
                 display: 'flex',
                 gap: '8px',
                 padding: '8px 12px',
+                flexWrap: 'wrap',
                 borderBottom: `1px solid ${colors.sidebarBorder}`,
                 backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)'
             }}>
