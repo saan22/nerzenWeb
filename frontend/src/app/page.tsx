@@ -512,22 +512,40 @@ export default function LoginPage() {
                     marginTop: '40px',
                     textAlign: 'center'
                 }}>
-                    <p style={{
-                        fontSize: '10px',
-                        color: colors.footerText,
-                        textTransform: 'uppercase',
-                        letterSpacing: '2px',
-                        fontWeight: 600
-                    }}>
-                        Nerzen Bilişim Teknolojileri
-                    </p>
+                    <a
+                        href="https://nerzen.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-block',
+                            fontSize: '11px',
+                            color: colors.text,
+                            textDecoration: 'none',
+                            textTransform: 'uppercase',
+                            letterSpacing: '2px',
+                            fontWeight: 700,
+                            padding: '4px 8px',
+                            borderBottom: `1px solid ${colors.accent}`,
+                            transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.color = colors.accent;
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.color = colors.text;
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                    >
+                        Nerzen.com
+                    </a>
                     <p style={{
                         fontSize: '9px',
                         color: colors.footerText,
-                        marginTop: '4px',
+                        marginTop: '12px',
                         letterSpacing: '1px'
                     }}>
-                        Professional Mail Client v1.0
+                        Professional Webmail Client
                     </p>
                 </div>
             </div>
