@@ -43,7 +43,9 @@ export default function LoginPage() {
     useEffect(() => {
         if (!showAdvanced && credentials.email.includes('@')) {
             const domain = credentials.email.split('@')[1];
-            setServerConfig(prev => ({ ...prev, host: `mail.${domain}` }));
+            if (domain) {
+                setServerConfig(prev => ({ ...prev, host: `mail.${domain}` }));
+            }
         }
     }, [credentials.email, showAdvanced]);
 
