@@ -68,7 +68,7 @@ export default function LoginPage() {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+            const response = await fetch(`/api/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

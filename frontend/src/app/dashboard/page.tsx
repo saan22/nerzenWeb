@@ -80,7 +80,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         setSelectedUids([]); // Clear selection when fetching folders
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/folders`, {
+            const response = await fetch(`/api/folders`, {
                 headers: { "Authorization": token || "" }
             });
             const result = await response.json();
@@ -110,7 +110,7 @@ export default function Dashboard() {
 
         try {
             const encodedFolder = encodeURIComponent(folder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails?folder=${encodedFolder}`, {
                 headers: { "Authorization": token || "" }
             });
             const result = await response.json() as any;
@@ -161,7 +161,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         try {
             const encodedFolder = encodeURIComponent(selectedFolder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${mail.uid}?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails/${mail.uid}?folder=${encodedFolder}`, {
                 headers: { "Authorization": token || "" }
             });
             const result = await response.json();
@@ -212,7 +212,7 @@ export default function Dashboard() {
                 formData.append('attachments', file, file.name || 'attachment');
             });
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/send`, {
+            const response = await fetch(`/api/send`, {
                 method: "POST",
                 headers: {
                     // "Content-Type" NOT SET (browser sets multipart/form-data boundary automatically)
@@ -226,7 +226,7 @@ export default function Dashboard() {
                 // If this was a draft, delete it from drafts folder
                 if (draftUid) {
                     try {
-                        const delResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${draftUid}?folder=DRAFTS`, {
+                        const delResponse = await fetch(`/api/mails/${draftUid}?folder=DRAFTS`, {
                             method: 'DELETE',
                             headers: { "Authorization": token || "" }
                         });
@@ -259,7 +259,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         try {
             const encodedFolder = encodeURIComponent(selectedFolder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${uid}?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails/${uid}?folder=${encodedFolder}`, {
                 method: 'DELETE',
                 headers: { "Authorization": token || "" }
             });
@@ -293,7 +293,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         try {
             const encodedFolder = encodeURIComponent(selectedFolder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${uid}/spam?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails/${uid}/spam?folder=${encodedFolder}`, {
                 method: 'POST',
                 headers: { "Authorization": token || "" }
             });
@@ -321,7 +321,7 @@ export default function Dashboard() {
 
         const token = localStorage.getItem("nerzen_token");
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trash/empty`, {
+            const response = await fetch(`/api/trash/empty`, {
                 method: 'DELETE',
                 headers: { "Authorization": token || "" }
             });
@@ -357,7 +357,7 @@ export default function Dashboard() {
         });
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/drafts`, {
+            const response = await fetch(`/api/drafts`, {
                 method: "POST",
                 headers: {
                     "Authorization": token || ""
@@ -397,7 +397,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         try {
             const encodedFolder = encodeURIComponent(selectedFolder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${uid}/archive?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails/${uid}/archive?folder=${encodedFolder}`, {
                 method: 'POST',
                 headers: { "Authorization": token || "" }
             });
@@ -425,7 +425,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         try {
             const encodedFolder = encodeURIComponent(selectedFolder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${uid}/unread?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails/${uid}/unread?folder=${encodedFolder}`, {
                 method: 'POST',
                 headers: { "Authorization": token || "" }
             });
@@ -455,7 +455,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("nerzen_token");
         try {
             const encodedFolder = encodeURIComponent(selectedFolder);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${uid}/move?folder=${encodedFolder}`, {
+            const response = await fetch(`/api/mails/${uid}/move?folder=${encodedFolder}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -496,7 +496,7 @@ export default function Dashboard() {
 
         const token = localStorage.getItem("nerzen_token");
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${uid}/download?folder=${encodeURIComponent(selectedFolder)}`, {
+            const res = await fetch(`/api/mails/${uid}/download?folder=${encodeURIComponent(selectedFolder)}`, {
                 headers: { "Authorization": token || "" }
             });
             if (!res.ok) throw new Error('İndirme başarısız');
@@ -1098,7 +1098,7 @@ export default function Dashboard() {
                                                     onClick={() => {
                                                         if (confirm(`'${att.filename}' adlı dosyayı indirmek istediğinize emin misiniz?`)) {
                                                             const token = localStorage.getItem("nerzen_token");
-                                                            window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/mails/${selectedMail.uid}/attachments/${encodeURIComponent(att.filename)}?folder=${encodeURIComponent(selectedFolder)}&token=${token}`, '_blank');
+                                                            window.open(`/api/mails/${selectedMail.uid}/attachments/${encodeURIComponent(att.filename)}?folder=${encodeURIComponent(selectedFolder)}&token=${token}`, '_blank');
                                                         }
                                                     }}
                                                     style={{
