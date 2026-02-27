@@ -120,7 +120,8 @@ fastify.post('/api/login', async (request, reply) => {
         secure: secure ?? (process.env.IMAP_SECURE === 'true'),
         auth: { user: email, pass: password },
         tls: {
-            rejectUnauthorized: false
+            rejectUnauthorized: false,
+            checkServerIdentity: () => undefined
         },
         logger: {} as any, // Enable logging to console
         greetingTimeout: 15000
