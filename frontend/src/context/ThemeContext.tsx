@@ -12,58 +12,58 @@ interface ThemeContextType {
 
 export const colors = {
     dark: {
-        bg: '#0A0E1A',
+        bg: '#0F172A', // Slate-900 (Corporate Anthracite)
         text: '#F8FAFC',
-        subtext: 'rgba(255,255,255,0.4)',
-        cardBg: 'rgba(15,22,35,0.8)',
-        inputBg: 'rgba(0,0,0,0.3)',
-        inputBorder: 'rgba(255,255,255,0.1)',
-        inputFocus: 'rgba(59,130,246,0.5)',
-        iconColor: 'rgba(255,255,255,0.2)',
-        footerText: 'rgba(255,255,255,0.2)',
-        glow: 'rgba(59,130,246,0.1)',
-        logoText: 'linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%)',
-        accent: '#3B82F6',
-        accentHover: '#1D4ED8',
+        subtext: '#94A3B8', // Slate-400
+        cardBg: '#1E293B', // Slate-800
+        inputBg: 'rgba(15,23,42,0.6)',
+        inputBorder: 'rgba(255,255,255,0.08)',
+        inputFocus: '#3B82F6',
+        iconColor: '#94A3B8',
+        footerText: '#64748B',
+        glow: 'rgba(59,130,246,0.15)',
+        logoText: 'linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%)',
+        accent: '#3B82F6', // Blue-500
+        accentHover: '#2563EB',
         danger: '#EF4444',
-        dangerBg: 'rgba(239,68,68,0.1)',
+        dangerBg: 'rgba(239,68,68,0.15)',
         success: '#10B981',
-        sidebarBg: '#0F1623',
-        sidebarBorder: 'rgba(255,255,255,0.05)',
-        headerBg: '#0F1623',
-        folderActive: 'rgba(59,130,246,0.1)',
-        mailListBg: '#0A0E1A',
-        mailListBorder: 'rgba(255,255,255,0.05)',
-        mailItemHover: 'rgba(255,255,255,0.02)',
-        mailItemActive: 'rgba(59,130,246,0.05)',
-        mailDetailBg: '#0A0E1A'
+        sidebarBg: '#0B1121', // Slightly darker than bg for contrast
+        sidebarBorder: 'rgba(255,255,255,0.06)',
+        headerBg: '#0F172A',
+        folderActive: 'rgba(59,130,246,0.15)',
+        mailListBg: '#0F172A',
+        mailListBorder: 'rgba(255,255,255,0.06)',
+        mailItemHover: 'rgba(255,255,255,0.03)',
+        mailItemActive: 'rgba(59,130,246,0.1)',
+        mailDetailBg: '#0B1121' // Deepest background for reading pane contrast
     },
     light: {
-        bg: '#FDFBF7', // Warmer, straw-like color
-        text: '#1E293B',
-        subtext: 'rgba(30,41,59,0.5)',
-        cardBg: 'rgba(255,255,255,0.9)',
+        bg: '#F1F5F9', // Slate-100 (Clean light gray)
+        text: '#0F172A', // Slate-900
+        subtext: '#64748B', // Slate-500
+        cardBg: '#FFFFFF',
         inputBg: '#FFFFFF',
-        inputBorder: 'rgba(0,0,0,0.1)',
-        inputFocus: 'rgba(37,99,235,0.5)',
-        iconColor: 'rgba(30,41,59,0.3)',
-        footerText: 'rgba(30,41,59,0.4)',
-        glow: 'rgba(37,99,235,0.05)',
-        logoText: 'linear-gradient(180deg, #1E293B 0%, #000000 100%)', // Darker, more visible
-        accent: '#2563EB',
+        inputBorder: '#E2E8F0', // Slate-200
+        inputFocus: '#3B82F6',
+        iconColor: '#64748B',
+        footerText: '#94A3B8',
+        glow: 'rgba(59,130,246,0.08)',
+        logoText: 'linear-gradient(180deg, #0F172A 0%, #334155 100%)',
+        accent: '#2563EB', // Blue-600
         accentHover: '#1D4ED8',
         danger: '#DC2626',
         dangerBg: 'rgba(220,38,38,0.1)',
         success: '#059669',
-        sidebarBg: '#FDFBF7', // Match bg
-        sidebarBorder: 'rgba(0,0,0,0.05)',
-        headerBg: '#FDFBF7', // Match bg
-        folderActive: 'rgba(37,99,235,0.1)',
+        sidebarBg: '#F8FAFC', // Slate-50
+        sidebarBorder: '#E2E8F0',
+        headerBg: '#FFFFFF',
+        folderActive: 'rgba(37,99,235,0.08)',
         mailListBg: '#F8FAFC',
-        mailListBorder: 'rgba(0,0,0,0.05)',
-        mailItemHover: 'rgba(0,0,0,0.02)',
-        mailItemActive: 'rgba(37,99,235,0.05)',
-        mailDetailBg: '#F1F5F9'
+        mailListBorder: '#E2E8F0',
+        mailItemHover: 'rgba(15,23,42,0.02)',
+        mailItemActive: 'rgba(37,99,235,0.06)',
+        mailDetailBg: '#FFFFFF'
     }
 };
 

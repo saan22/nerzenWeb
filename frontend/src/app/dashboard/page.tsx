@@ -641,9 +641,10 @@ export default function Dashboard() {
                         <div style={{
                             width: '40px',
                             height: '40px',
-                            borderRadius: '50%',
-                            backgroundColor: 'rgba(59,130,246,0.2)',
-                            border: '1px solid rgba(59,130,246,0.3)',
+                            borderRadius: '10px',
+                            backgroundColor: 'rgba(59,130,246,0.15)',
+                            border: '1px solid rgba(59,130,246,0.2)',
+                            boxShadow: '0 2px 8px rgba(59,130,246,0.1)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -733,21 +734,33 @@ export default function Dashboard() {
                                 {selectedMail ? <ArrowRight style={{ transform: 'rotate(180deg)' }} size={20} /> : <Inbox size={20} />}
                             </button>
                         )}
-                        <Search size={16} style={{ color: colors.iconColor, flexShrink: 0 }} />
-                        <input
-                            type="text"
-                            placeholder={isMobile ? "Ara..." : "E-postaları ara..."}
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{
-                                flex: 1,
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                color: colors.text,
-                                fontSize: '14px',
-                                minWidth: 0
-                            }}
-                        />
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            flex: 1,
+                            backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)',
+                            borderRadius: '8px',
+                            padding: '6px 12px',
+                            border: `1px solid ${colors.sidebarBorder}`,
+                            transition: 'all 0.2s',
+                        }}>
+                            <Search size={16} style={{ color: colors.iconColor, flexShrink: 0, marginRight: '8px' }} />
+                            <input
+                                type="text"
+                                placeholder={isMobile ? "Ara..." : "E-postaları ara..."}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
+                                    color: colors.text,
+                                    fontSize: '14px',
+                                    minWidth: 0,
+                                    outline: 'none'
+                                }}
+                            />
+                        </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         {/* Empty Trash Button */}
@@ -830,15 +843,16 @@ export default function Dashboard() {
                                 borderBottom: `1px solid ${colors.mailListBorder}`,
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '12px'
+                                gap: '12px',
+                                backgroundColor: theme === 'dark' ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.01)'
                             }}>
                                 <input
                                     type="checkbox"
                                     checked={selectedUids.length > 0 && selectedUids.length === filteredMails.length}
                                     onChange={handleSelectAll}
-                                    style={{ width: '16px', height: '16px', cursor: 'pointer' }}
+                                    style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: colors.accent }}
                                 />
-                                <span style={{ fontSize: '13px', color: colors.subtext }}>
+                                <span style={{ fontSize: '13px', fontWeight: 600, color: colors.text }}>
                                     {selectedUids.length > 0 ? `${selectedUids.length} seçildi` : 'Tümünü Seç'}
                                 </span>
                             </div>
@@ -869,16 +883,18 @@ export default function Dashboard() {
                                 </p>
                             </div>
                         ) : (
-                            filteredMails.map((mail) => (
-                                <MailItem
-                                    key={mail.uid}
-                                    mail={mail}
-                                    active={selectedMail?.uid === mail.uid}
-                                    selected={selectedUids.includes(mail.uid)}
-                                    onToggleSelect={(e: any) => handleToggleSelect(mail.uid, e)}
-                                    onClick={() => handleMailSelect(mail)}
-                                />
-                            ))
+                            <div style={{ padding: '8px 12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                {filteredMails.map((mail) => (
+                                    <MailItem
+                                        key={mail.uid}
+                                        mail={mail}
+                                        active={selectedMail?.uid === mail.uid}
+                                        selected={selectedUids.includes(mail.uid)}
+                                        onToggleSelect={(e: any) => handleToggleSelect(mail.uid, e)}
+                                        onClick={() => handleMailSelect(mail)}
+                                    />
+                                ))}
+                            </div>
                         )}
                     </div>
 
@@ -976,10 +992,11 @@ export default function Dashboard() {
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                         <div style={{
-                                            width: '40px',
-                                            height: '40px',
-                                            borderRadius: '20px',
+                                            width: '44px',
+                                            height: '44px',
+                                            borderRadius: '12px',
                                             backgroundColor: colors.accent,
+                                            boxShadow: `0 4px 12px ${theme === 'dark' ? 'rgba(59,130,246,0.3)' : 'rgba(59,130,246,0.2)'}`,
                                             color: 'white',
                                             display: 'flex',
                                             alignItems: 'center',
@@ -1161,21 +1178,23 @@ export default function Dashboard() {
                         }}
                     >
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                            initial={{ scale: 0.95, opacity: 0, y: 30 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                            exit={{ scale: 0.95, opacity: 0, y: 30 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                             style={{
                                 width: isMobile ? '100%' : '800px',
                                 maxWidth: '100%',
                                 height: isMobile ? '100%' : 'auto',
                                 maxHeight: isMobile ? '100%' : '90vh',
-                                backgroundColor: colors.cardBg,
-                                border: isMobile ? 'none' : `1px solid ${colors.sidebarBorder}`,
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-                                borderRadius: isMobile ? '0' : '12px',
+                                backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.98)',
+                                borderRadius: isMobile ? '0' : '16px',
+                                border: isMobile ? 'none' : theme === 'dark' ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.05)',
+                                boxShadow: theme === 'dark' ? '0 25px 80px rgba(0,0,0,0.6)' : '0 25px 80px rgba(0,0,0,0.15)',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                                backdropFilter: 'blur(20px)'
                             }}
                         >
                             {/* Modal Header */}
@@ -1400,32 +1419,37 @@ function NavItem({ icon, label, active = false, count = 0, onClick }: any) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '12px 16px',
+                padding: '10px 14px',
                 fontSize: '14px',
-                marginBottom: '4px',
-                backgroundColor: active ? colors.folderActive : (isHovered ? (theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)') : 'transparent'),
+                marginBottom: '6px',
+                borderRadius: '8px',
+                backgroundColor: active ? colors.folderActive : (isHovered ? (theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)') : 'transparent'),
                 color: active ? colors.accent : (isHovered ? colors.text : colors.subtext),
-                borderLeft: active ? `2px solid ${colors.accent}` : '2px solid transparent',
-                transition: 'all 0.2s'
+                border: 'none',
+                boxShadow: active ? `inset 3px 0 0 ${colors.accent}` : 'inset 3px 0 0 transparent',
+                transform: isHovered && !active ? 'translateX(2px)' : 'none',
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 {icon}
                 <span style={{ fontWeight: 500 }}>{label}</span>
             </div>
-            {count > 0 && (
-                <span style={{
-                    backgroundColor: 'rgba(59,130,246,0.2)',
-                    color: '#3B82F6',
-                    fontSize: '10px',
-                    padding: '2px 8px',
-                    borderRadius: '12px',
-                    fontWeight: 700
-                }}>
-                    {count}
-                </span>
-            )}
-        </button>
+            {
+                count > 0 && (
+                    <span style={{
+                        backgroundColor: 'rgba(59,130,246,0.2)',
+                        color: '#3B82F6',
+                        fontSize: '10px',
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        fontWeight: 700
+                    }}>
+                        {count}
+                    </span>
+                )
+            }
+        </button >
     );
 }
 
@@ -1447,13 +1471,16 @@ function MailItem({ mail, active, selected, onToggleSelect, onClick }: any) {
         <div
             style={{
                 display: 'flex',
-                borderBottom: `1px solid ${colors.mailListBorder}`,
-                backgroundColor: active ? colors.mailItemActive : (selected ? 'rgba(59,130,246,0.1)' : (isHovered ? colors.mailItemHover : (isUnread ? (theme === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)') : 'transparent'))),
-                borderLeft: active ? `3px solid ${colors.accent}` : (isUnread ? `3px solid ${colors.accent}` : '3px solid transparent'),
-                transition: 'all 0.2s',
+                borderRadius: '8px',
+                border: theme === 'dark' ? '1px solid rgba(255,255,255,0.04)' : '1px solid rgba(0,0,0,0.04)',
+                backgroundColor: active ? colors.mailItemActive : (selected ? 'rgba(59,130,246,0.1)' : (isHovered ? colors.mailItemHover : (isUnread ? (theme === 'dark' ? 'rgba(255,255,255,0.03)' : '#FFFFFF') : 'transparent'))),
+                boxShadow: active ? `inset 4px 0 0 ${colors.accent}, 0 4px 12px rgba(0,0,0,0.05)` : (isUnread ? `inset 4px 0 0 ${colors.accent}, 0 2px 4px rgba(0,0,0,0.02)` : 'inset 4px 0 0 transparent'),
+                transform: isHovered && !active ? 'translateY(-1px)' : 'none',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
                 position: 'relative',
                 height: 'auto',
-                minHeight: '100px'
+                minHeight: '85px',
+                overflow: 'hidden'
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

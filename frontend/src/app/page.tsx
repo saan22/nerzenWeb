@@ -211,9 +211,11 @@ export default function LoginPage() {
                 <div style={{
                     backgroundColor: colors.cardBg,
                     backdropFilter: 'blur(20px)',
-                    border: theme === 'dark' ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.05)',
-                    boxShadow: theme === 'dark' ? '0 20px 60px rgba(0,0,0,0.3)' : '0 20px 60px rgba(0,0,0,0.05)',
+                    border: theme === 'dark' ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)',
+                    boxShadow: theme === 'dark' ? '0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02)' : '0 20px 60px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.02)',
+                    borderRadius: '10px',
                     position: 'relative',
+                    overflow: 'hidden',
                     transition: 'background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease'
                 }}>
                     {/* Top Glow */}
@@ -275,16 +277,25 @@ export default function LoginPage() {
                                         width: '100%',
                                         backgroundColor: colors.inputBg,
                                         border: `1px solid ${colors.inputBorder}`,
+                                        borderRadius: '6px',
                                         padding: '14px 16px 14px 48px',
                                         color: colors.text,
                                         fontSize: '14px',
-                                        transition: 'all 0.2s'
+                                        outline: 'none',
+                                        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)',
+                                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
                                     }}
                                     placeholder="kullanici@nerzen.com"
                                     value={credentials.email}
                                     onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-                                    onFocus={(e) => e.target.style.borderColor = colors.inputFocus}
-                                    onBlur={(e) => e.target.style.borderColor = colors.inputBorder}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = colors.inputFocus;
+                                        e.target.style.boxShadow = `0 0 0 3px ${theme === 'dark' ? 'rgba(59,130,246,0.3)' : 'rgba(59,130,246,0.15)'}, inset 0 1px 2px rgba(0,0,0,0.02)`;
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = colors.inputBorder;
+                                        e.target.style.boxShadow = 'inset 0 1px 2px rgba(0,0,0,0.02)';
+                                    }}
                                 />
                             </div>
                             <p style={{
@@ -326,16 +337,25 @@ export default function LoginPage() {
                                         width: '100%',
                                         backgroundColor: colors.inputBg,
                                         border: `1px solid ${colors.inputBorder}`,
+                                        borderRadius: '6px',
                                         padding: '14px 16px 14px 48px',
                                         color: colors.text,
                                         fontSize: '14px',
-                                        transition: 'all 0.2s'
+                                        outline: 'none',
+                                        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.02)',
+                                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
                                     }}
                                     placeholder="••••••••"
                                     value={credentials.password}
                                     onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                                    onFocus={(e) => e.target.style.borderColor = colors.inputFocus}
-                                    onBlur={(e) => e.target.style.borderColor = colors.inputBorder}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = colors.inputFocus;
+                                        e.target.style.boxShadow = `0 0 0 3px ${theme === 'dark' ? 'rgba(59,130,246,0.3)' : 'rgba(59,130,246,0.15)'}, inset 0 1px 2px rgba(0,0,0,0.02)`;
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = colors.inputBorder;
+                                        e.target.style.boxShadow = 'inset 0 1px 2px rgba(0,0,0,0.02)';
+                                    }}
                                 />
                             </div>
                         </div>
@@ -383,11 +403,16 @@ export default function LoginPage() {
                                                     width: '100%',
                                                     backgroundColor: colors.inputBg,
                                                     border: `1px solid ${colors.inputBorder}`,
+                                                    borderRadius: '4px',
                                                     padding: '10px 12px 10px 36px',
                                                     color: colors.text,
-                                                    fontSize: '13px'
+                                                    fontSize: '13px',
+                                                    outline: 'none',
+                                                    transition: 'all 0.2s'
                                                 }}
                                                 placeholder="mail.example.com"
+                                                onFocus={(e) => e.target.style.borderColor = colors.inputFocus}
+                                                onBlur={(e) => e.target.style.borderColor = colors.inputBorder}
                                             />
                                         </div>
                                     </div>
@@ -406,11 +431,16 @@ export default function LoginPage() {
                                                         width: '100%',
                                                         backgroundColor: colors.inputBg,
                                                         border: `1px solid ${colors.inputBorder}`,
+                                                        borderRadius: '4px',
                                                         padding: '10px 12px 10px 36px',
                                                         color: colors.text,
-                                                        fontSize: '13px'
+                                                        fontSize: '13px',
+                                                        outline: 'none',
+                                                        transition: 'all 0.2s'
                                                     }}
                                                     placeholder="993"
+                                                    onFocus={(e) => e.target.style.borderColor = colors.inputFocus}
+                                                    onBlur={(e) => e.target.style.borderColor = colors.inputBorder}
                                                 />
                                             </div>
                                         </div>
@@ -447,10 +477,12 @@ export default function LoginPage() {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: '10px',
-                                transition: 'all 0.2s',
+                                borderRadius: '6px',
+                                border: 'none',
+                                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                                 opacity: loading ? 0.6 : 1,
                                 cursor: loading ? 'not-allowed' : 'pointer',
-                                boxShadow: '0 4px 20px rgba(59,130,246,0.3)'
+                                boxShadow: '0 4px 14px rgba(59,130,246,0.3)'
                             }}
                             onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#1D4ED8')}
                             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#3B82F6'}
