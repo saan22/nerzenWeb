@@ -36,6 +36,10 @@ export default function LoginPage() {
         const token = localStorage.getItem("nerzen_token");
         if (token) {
             router.push("/dashboard");
+        } else {
+            // Ensure fields are completely cleared upon returning to login page
+            setCredentials({ email: "", password: "" });
+            setServerConfig({ host: "", port: "993", secure: true });
         }
     }, [router]);
 
