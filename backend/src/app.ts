@@ -310,10 +310,13 @@ fastify.post('/api/send', async (request, reply) => {
         const rawMessage = info.message as Buffer;
 
         // 2. Send via SMTP
+        const defaultSmtpHost = sessionData.host.replace('imap', 'mail');
+        const smtpPort = parseInt(process.env.SMTP_PORT || '587');
+
         const smtpTransporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || sessionData.host.replace('imap', 'mail').replace('993', '465'),
-            port: parseInt(process.env.SMTP_PORT || '465'),
-            secure: true,
+            host: process.env.SMTP_HOST || defaultSmtpHost,
+            port: smtpPort,
+            secure: smtpPort === 465,
             auth: {
                 user: sessionData.email,
                 pass: sessionData.password
