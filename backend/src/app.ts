@@ -317,6 +317,10 @@ fastify.post('/api/send', async (request, reply) => {
             auth: {
                 user: sessionData.email,
                 pass: sessionData.password
+            },
+            tls: {
+                rejectUnauthorized: false,
+                checkServerIdentity: () => undefined
             }
         });
 
@@ -340,7 +344,7 @@ fastify.post('/api/send', async (request, reply) => {
             port: parseInt(sessionData.port || process.env.IMAP_PORT),
             secure: sessionData.secure ?? (process.env.IMAP_SECURE === 'true'),
             auth: { user: sessionData.email, pass: sessionData.password },
-            tls: { rejectUnauthorized: false },
+            tls: { rejectUnauthorized: false, checkServerIdentity: () => undefined },
             logger: false
         });
 
