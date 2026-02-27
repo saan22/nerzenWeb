@@ -20,7 +20,7 @@ services:
     build:
       context: ./frontend
       args:
-        - NEXT_PUBLIC_API_URL=https://webmail-api.DomaininizVeyaIP.com
+        - NEXT_PUBLIC_API_URL=https://iposta.net:3005
     restart: always
     ports:
       - "3000:3000"
