@@ -21,4 +21,4 @@ COPY .env.example .env
 
 EXPOSE 3005
 
-CMD ["node", "dist/app.js"]
+CMD ["node", "dist/src/app.js"]
