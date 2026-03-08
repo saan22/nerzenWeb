@@ -177,7 +177,7 @@ export default function LoginPage() {
                                     height: isMobile ? '80px' : '140px',
                                     width: 'auto',
                                     filter: theme === 'dark'
-                                        ? 'brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2))'
+                                        ? 'drop-shadow(0 4px 20px rgba(0,0,0,0.5))'
                                         : 'drop-shadow(0 4px 15px rgba(0,0,0,0.1))',
                                     transition: 'all 0.3s ease'
                                 }}
