@@ -539,10 +539,27 @@ export default function LoginPage() {
                     >
                         Nerzen.com
                     </a>
+                    <div style={{
+                        marginTop: '16px',
+                        fontSize: '10px',
+                        color: colors.footerText,
+                        lineHeight: '1.6',
+                        letterSpacing: '0.5px'
+                    }}>
+                        <p style={{ fontWeight: 600, color: colors.subtext, marginBottom: '4px' }}>Nerzen Bilişim Teknolojileri</p>
+                        <p>Adres: Gazi Mustafa Kemalpaşa Mah. Özcan Sk. No: 12/1 Çerkezköy/Tekirdağ</p>
+                        <p>
+                            <a href="mailto:info@nerzen.com" style={{ color: colors.subtext, textDecoration: 'none' }}>info@nerzen.com</a>
+                        </p>
+                        <p style={{ marginTop: '2px' }}>
+                            Tel: <a href="tel:+902826060771" style={{ color: colors.subtext, textDecoration: 'none' }}>+90 (282) 606 07 71</a> &nbsp;|&nbsp;
+                            WhatsApp: <a href="https://wa.me/902826060771" target="_blank" rel="noopener noreferrer" style={{ color: colors.subtext, textDecoration: 'none' }}>+90 (282) 606 07 71</a>
+                        </p>
+                    </div>
                     <p style={{
                         fontSize: '9px',
-                        color: colors.footerText,
-                        marginTop: '12px',
+                        color: 'rgba(148, 163, 184, 0.3)', // Very subtle slate color
+                        marginTop: '16px',
                         letterSpacing: '1px'
                     }}>
                         Professional Webmail Client
