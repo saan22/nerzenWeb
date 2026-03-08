@@ -167,7 +167,7 @@ export default function LoginPage() {
                 <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                     <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{
-                            padding: theme === 'dark' ? '4px 8px' : '0',
+                            padding: theme === 'dark' ? '2px 4px' : '0',
                             backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.85)' : 'transparent',
                             borderRadius: theme === 'dark' ? '8px' : '0',
                             boxShadow: theme === 'dark' ? '0 5px 15px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.5)' : 'none',
