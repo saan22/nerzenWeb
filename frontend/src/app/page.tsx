@@ -167,11 +167,6 @@ export default function LoginPage() {
                 <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                     <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{
-                            padding: theme === 'dark' ? '32px 48px' : '0',
-                            backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.96)' : 'transparent',
-                            borderRadius: theme === 'dark' ? '28px' : '0',
-                            boxShadow: theme === 'dark' ? '0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.4)' : 'none',
-                            backdropFilter: theme === 'dark' ? 'blur(10px)' : 'none',
                             display: 'inline-flex',
                             transition: 'all 0.3s ease'
                         }}>
@@ -179,11 +174,11 @@ export default function LoginPage() {
                                 src="/iposta-logo.png"
                                 alt="iPosta Logo"
                                 style={{
-                                    height: isMobile ? '80px' : '130px',
+                                    height: isMobile ? '80px' : '140px',
                                     width: 'auto',
-                                    filter: theme === 'light'
-                                        ? 'drop-shadow(0 4px 15px rgba(0,0,0,0.1))'
-                                        : 'none',
+                                    filter: theme === 'dark'
+                                        ? 'brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.2))'
+                                        : 'drop-shadow(0 4px 15px rgba(0,0,0,0.1))',
                                     transition: 'all 0.3s ease'
                                 }}
                             />
