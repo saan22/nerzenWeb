@@ -167,8 +167,8 @@ export default function LoginPage() {
                 <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                     <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <img
-                            src="/logo.png"
-                            alt="Nerzen Logo"
+                            src="/iposta-logo.png"
+                            alt="iPosta Logo"
                             style={{
                                 height: isMobile ? '35px' : '50px',
                                 width: 'auto',
@@ -517,27 +517,39 @@ export default function LoginPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                            display: 'inline-block',
+                            display: 'inline-flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            textDecoration: 'none',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            const textSpan = e.currentTarget.querySelector('.nerzen-link-text') as HTMLElement;
+                            if (textSpan) textSpan.style.color = colors.accent;
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            const textSpan = e.currentTarget.querySelector('.nerzen-link-text') as HTMLElement;
+                            if (textSpan) textSpan.style.color = colors.text;
+                        }}
+                    >
+                        <img
+                            src="/logo.png"
+                            alt="Nerzen Logo"
+                            style={{ height: '24px', width: 'auto', marginBottom: '12px', filter: theme === 'dark' ? 'drop-shadow(0 0 4px rgba(59,130,246,0.3))' : 'none' }}
+                        />
+                        <span className="nerzen-link-text" style={{
                             fontSize: '11px',
                             color: colors.text,
-                            textDecoration: 'none',
                             textTransform: 'uppercase',
                             letterSpacing: '2px',
                             fontWeight: 700,
                             padding: '4px 8px',
                             borderBottom: `1px solid ${colors.accent}`,
                             transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.color = colors.accent;
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.color = colors.text;
-                            e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                    >
-                        Nerzen.com
+                        }}>
+                            Nerzen.com
+                        </span>
                     </a>
                     <div style={{
                         marginTop: '16px',
