@@ -579,17 +579,27 @@ export default function Dashboard() {
                     justifyContent: 'center',
                     borderBottom: `1px solid ${colors.sidebarBorder}`
                 }}>
-                    <img
-                        src="/logo.png"
-                        alt="Logo"
-                        style={{
-                            height: '40px',
-                            width: 'auto',
-                            filter: theme === 'dark'
-                                ? 'drop-shadow(0 0 4px rgba(59,130,246,0.3))'
-                                : 'drop-shadow(0 1px 4px rgba(0,0,0,0.2))'
-                        }}
-                    />
+                    <div style={{
+                        padding: theme === 'dark' ? '4px 8px' : '0',
+                        backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.85)' : 'transparent',
+                        borderRadius: theme === 'dark' ? '8px' : '0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s ease'
+                    }}>
+                        <img
+                            src="/iposta-logo-horizontal.png"
+                            alt="iPosta Logo"
+                            style={{
+                                height: '28px',
+                                width: 'auto',
+                                filter: theme === 'dark'
+                                    ? 'none'
+                                    : 'drop-shadow(0 1px 3px rgba(0,0,0,0.1))'
+                            }}
+                        />
+                    </div>
                     {isMobile && (
                         <button
                             onClick={() => setIsSidebarOpen(false)}
