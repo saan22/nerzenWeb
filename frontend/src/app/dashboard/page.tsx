@@ -29,6 +29,10 @@ export default function Dashboard() {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedUids, setSelectedUids] = useState<number[]>([]);
 
+    // Sorting States
+    const [sortBy, setSortBy] = useState<'date' | 'sender' | 'subject'>('date');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
     // Mobile Support States
     const [isMobile, setIsMobile] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -52,7 +56,7 @@ export default function Dashboard() {
         }
     }, [selectedFolder]);
 
-    // Filter mails based on search term
+    // Filter and sort mails
     const filteredMails = mails.filter(mail => {
         if (!searchTerm) return true;
         const term = searchTerm.toLowerCase();
@@ -60,6 +64,22 @@ export default function Dashboard() {
             (mail.subject && mail.subject.toLowerCase().includes(term)) ||
             (mail.from && mail.from.toLowerCase().includes(term))
         );
+    }).sort((a, b) => {
+        let comparison = 0;
+        if (sortBy === 'date') {
+            const timeA = new Date(a.date).getTime();
+            const timeB = new Date(b.date).getTime();
+            comparison = timeA > timeB ? 1 : (timeA < timeB ? -1 : 0);
+        } else if (sortBy === 'sender') {
+            const senderA = (a.from || '').toLowerCase();
+            const senderB = (b.from || '').toLowerCase();
+            comparison = senderA > senderB ? 1 : (senderA < senderB ? -1 : 0);
+        } else if (sortBy === 'subject') {
+            const subA = (a.subject || '').toLowerCase();
+            const subB = (b.subject || '').toLowerCase();
+            comparison = subA > subB ? 1 : (subA < subB ? -1 : 0);
+        }
+        return sortOrder === 'asc' ? comparison : -comparison;
     });
 
     useEffect(() => {
@@ -843,18 +863,56 @@ export default function Dashboard() {
                                 borderBottom: `1px solid ${colors.mailListBorder}`,
                                 display: 'flex',
                                 alignItems: 'center',
+                                justifyContent: 'space-between',
                                 gap: '12px',
                                 backgroundColor: theme === 'dark' ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.01)'
                             }}>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedUids.length > 0 && selectedUids.length === filteredMails.length}
-                                    onChange={handleSelectAll}
-                                    style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: colors.accent }}
-                                />
-                                <span style={{ fontSize: '13px', fontWeight: 600, color: colors.text }}>
-                                    {selectedUids.length > 0 ? `${selectedUids.length} seçildi` : 'Tümünü Seç'}
-                                </span>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedUids.length > 0 && selectedUids.length === filteredMails.length}
+                                        onChange={handleSelectAll}
+                                        style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: colors.accent }}
+                                    />
+                                    <span style={{ fontSize: '13px', fontWeight: 600, color: colors.text }}>
+                                        {selectedUids.length > 0 ? `${selectedUids.length} seçildi` : 'Tümünü Seç'}
+                                    </span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <select
+                                        value={sortBy}
+                                        onChange={(e) => setSortBy(e.target.value as any)}
+                                        style={{
+                                            backgroundColor: 'transparent',
+                                            color: colors.subtext,
+                                            border: 'none',
+                                            fontSize: '12px',
+                                            outline: 'none',
+                                            cursor: 'pointer',
+                                            fontWeight: 500
+                                        }}
+                                    >
+                                        <option value="date" style={{ color: '#000' }}>Tarih</option>
+                                        <option value="sender" style={{ color: '#000' }}>Gönderen</option>
+                                        <option value="subject" style={{ color: '#000' }}>Konu</option>
+                                    </select>
+                                    <button
+                                        onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            color: colors.iconColor,
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            padding: '4px'
+                                        }}
+                                        title={sortOrder === 'asc' ? "Artan Sıralama (A-Z / Eski-Yeni)" : "Azalan Sıralama (Z-A / Yeni-Eski)"}
+                                    >
+                                        <ArrowRight size={14} style={{ transform: sortOrder === 'asc' ? 'rotate(-90deg)' : 'rotate(90deg)', transition: 'transform 0.2s' }} />
+                                    </button>
+                                </div>
                             </div>
                         )}
                         {loading ? (
