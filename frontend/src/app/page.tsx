@@ -167,6 +167,11 @@ export default function LoginPage() {
                 <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                     <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{
+                            padding: theme === 'dark' ? '16px 32px' : '0',
+                            backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.85)' : 'transparent',
+                            borderRadius: theme === 'dark' ? '24px' : '0',
+                            boxShadow: theme === 'dark' ? '0 10px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.5)' : 'none',
+                            backdropFilter: theme === 'dark' ? 'blur(12px)' : 'none',
                             display: 'inline-flex',
                             transition: 'all 0.3s ease'
                         }}>
@@ -177,7 +182,7 @@ export default function LoginPage() {
                                     height: isMobile ? '80px' : '140px',
                                     width: 'auto',
                                     filter: theme === 'dark'
-                                        ? 'drop-shadow(0 4px 20px rgba(0,0,0,0.5))'
+                                        ? 'drop-shadow(0 2px 10px rgba(0,0,0,0.1))'
                                         : 'drop-shadow(0 4px 15px rgba(0,0,0,0.1))',
                                     transition: 'all 0.3s ease'
                                 }}
