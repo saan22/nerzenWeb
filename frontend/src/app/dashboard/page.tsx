@@ -592,7 +592,7 @@ export default function Dashboard() {
                             src="/iposta-logo-horizontal.png"
                             alt="iPosta Logo"
                             style={{
-                                height: '28px',
+                                height: '56px',
                                 width: 'auto',
                                 filter: theme === 'dark'
                                     ? 'none'
