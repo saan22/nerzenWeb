@@ -170,7 +170,7 @@ export default function LoginPage() {
                             src="/logo.png"
                             alt="Nerzen Logo"
                             style={{
-                                height: isMobile ? '70px' : '100px',
+                                height: isMobile ? '35px' : '50px',
                                 width: 'auto',
                                 filter: theme === 'dark'
                                     ? 'drop-shadow(0 0 15px rgba(59,130,246,0.4))'
