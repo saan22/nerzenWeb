@@ -166,18 +166,27 @@ export default function LoginPage() {
                 {/* Logo Section */}
                 <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                     <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <img
-                            src="/iposta-logo.png"
-                            alt="iPosta Logo"
-                            style={{
-                                height: isMobile ? '35px' : '50px',
-                                width: 'auto',
-                                filter: theme === 'dark'
-                                    ? 'drop-shadow(0 0 15px rgba(59,130,246,0.4))'
-                                    : 'drop-shadow(0 2px 10px rgba(0,0,0,0.15))',
-                                transition: 'all 0.3s ease'
-                            }}
-                        />
+                        <div style={{
+                            padding: theme === 'dark' ? '12px 24px' : '0',
+                            backgroundColor: theme === 'dark' ? '#FFFFFF' : 'transparent',
+                            borderRadius: theme === 'dark' ? '16px' : '0',
+                            boxShadow: theme === 'dark' ? '0 0 20px rgba(59,130,246,0.3)' : 'none',
+                            display: 'inline-flex',
+                            transition: 'all 0.3s ease'
+                        }}>
+                            <img
+                                src="/iposta-logo.png"
+                                alt="iPosta Logo"
+                                style={{
+                                    height: isMobile ? '70px' : '100px',
+                                    width: 'auto',
+                                    filter: theme === 'light'
+                                        ? 'drop-shadow(0 2px 10px rgba(0,0,0,0.15))'
+                                        : 'none',
+                                    transition: 'all 0.3s ease'
+                                }}
+                            />
+                        </div>
                     </div>
                     <div style={{
                         display: 'flex',
