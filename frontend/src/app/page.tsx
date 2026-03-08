@@ -167,10 +167,11 @@ export default function LoginPage() {
                 <div style={{ textAlign: 'center', marginBottom: '48px' }}>
                     <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{
-                            padding: theme === 'dark' ? '12px 24px' : '0',
-                            backgroundColor: theme === 'dark' ? '#FFFFFF' : 'transparent',
-                            borderRadius: theme === 'dark' ? '16px' : '0',
-                            boxShadow: theme === 'dark' ? '0 0 20px rgba(59,130,246,0.3)' : 'none',
+                            padding: theme === 'dark' ? '32px 48px' : '0',
+                            backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.96)' : 'transparent',
+                            borderRadius: theme === 'dark' ? '28px' : '0',
+                            boxShadow: theme === 'dark' ? '0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.4)' : 'none',
+                            backdropFilter: theme === 'dark' ? 'blur(10px)' : 'none',
                             display: 'inline-flex',
                             transition: 'all 0.3s ease'
                         }}>
@@ -178,10 +179,10 @@ export default function LoginPage() {
                                 src="/iposta-logo.png"
                                 alt="iPosta Logo"
                                 style={{
-                                    height: isMobile ? '70px' : '100px',
+                                    height: isMobile ? '80px' : '130px',
                                     width: 'auto',
                                     filter: theme === 'light'
-                                        ? 'drop-shadow(0 2px 10px rgba(0,0,0,0.15))'
+                                        ? 'drop-shadow(0 4px 15px rgba(0,0,0,0.1))'
                                         : 'none',
                                     transition: 'all 0.3s ease'
                                 }}
